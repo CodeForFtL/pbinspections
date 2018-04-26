@@ -5,6 +5,10 @@ Find a solution to help the city of Pompano Beach provide to residents informati
 Current dataset and map of building inspector workload:
 https://qtrandev.carto.com/tables/inspectiondata/public
 
+## Questions to ask City of Pompano Beach officials
+1)  
+2)  
+
 ## Data Source
 https://github.com/CodeForCoPB/HackathonApril2018
 https://github.com/CodeForCoPB/HackathonApril2018/blob/master/InspectionData.csv?raw=true
