@@ -1,0 +1,14 @@
+<p>
+  <a routerLink="./add">Add</a>
+</p>
+
+<div class="card" *ngFor="let inspection of inspections | async">
+  <div class="card-body">
+    <h5 class="card-title">{{inspection.address}}</h5>
+    <p class="card-text"><b>Owner</b>: {{inspection.owner}}</p>
+    <p class="card-text"><b>Inspector</b>: {{inspection.inspectorName}}</p>
+    <p class="card-text"><b>Date</b>: {{inspection.inspectionDate.seconds * 1000 | date}}</p>
+    <a class="card-link" routerLink="./edit/{{inspection.id}}">Edit</a>
+    <a href class="card-link" (click)="$event.preventDefault(); remove(inspection.id)">Delete</a>
+  </div>
+</div>

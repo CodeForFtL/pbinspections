@@ -1,0 +1,117 @@
+<form *ngIf="inspection" (submit)="save()">
+  <div class="form-group">
+    <label for="inspectorId">Inspector Id</label>
+    <input id="inspectorId"
+           name="inspectorId"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.inspectorId">
+  </div>
+  <div class="form-group">
+    <label for="inspectorName">Inspector Name</label>
+    <input id="inspectorName"
+           name="inspectorName"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.inspectorName">
+  </div>
+  <div class="form-group">
+    <label for="permitNumber">Permit Number</label>
+    <input id="permitNumber"
+           name="permitNumber"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.permitNumber">
+  </div>
+  <div class="form-group">
+    <label for="inspectionDate">Inspection Date</label>
+    <input id="inspectionDate"
+           name="inspectionDate"
+           type="text"
+           class="form-control"
+           [ngModel]="inspection.inspectionDate.seconds * 1000 | date"
+           (ngModelChange)="changeDate($event)">
+  </div>
+  <div class="form-group">
+    <label for="owner">Owner</label>
+    <input id="owner"
+           name="owner"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.owner">
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input id="address"
+           name="address"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.address">
+  </div>
+  <div class="form-group">
+    <label for="zipCode">Zip Code</label>
+    <input id="zipCode"
+           name="zipCode"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.zipCode">
+  </div>
+  <div class="form-group">
+    <label for="apt">Apartment</label>
+    <input id="apt"
+           name="apt"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.apt">
+  </div>
+  <div class="form-group">
+    <label for="permitType">Permit Type</label>
+    <input id="permitType"
+           name="permitType"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.permitType">
+  </div>
+  <div class="form-group">
+    <label for="inspectionType">Inspection Type</label>
+    <input id="inspectionType"
+           name="inspectionType"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.inspectionType">
+  </div>
+  <div class="form-group">
+    <label for="inspectionResults">Inspection Results</label>
+    <input id="inspectionResults"
+           name="inspectionResults"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.inspectionResults">
+  </div>
+  <div class="form-group">
+    <label for="inspectionCodeDesc">Inspection Code Description</label>
+    <input id="inspectionCodeDesc"
+           name="inspectionCodeDesc"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.inspectionCodeDesc">
+  </div>
+  <div class="form-group">
+    <label for="locId">Location Id</label>
+    <input id="locId"
+           name="locId"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.locId">
+  </div>
+  <div class="form-group">
+    <label for="folioNo">Folio No.</label>
+    <input id="folioNo"
+           name="folioNo"
+           type="text"
+           class="form-control"
+           [(ngModel)]="inspection.folioNo">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit Form</button>
+</form>
