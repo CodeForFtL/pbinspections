@@ -6,8 +6,8 @@ Current dataset and map of building inspector workload:
 https://qtrandev.carto.com/tables/inspectiondata/public
 
 ## Demos In Progress
-1) https://github.com/CodeForFtL/pompano-beach-inspections/tree/angular-poc  
-2) https://github.com/qtrandev/react-pompano  
+1) https://github.com/CodeForFtL/pompano-beach-inspections/tree/angular-poc (https://where-is-my-inspector-dev.firebaseapp.com)  
+2) https://github.com/qtrandev/react-pompano (https://qtrandev.github.io/react-pompano)  
 
 ## Data Source
 https://github.com/CodeForCoPB/HackathonApril2018  
