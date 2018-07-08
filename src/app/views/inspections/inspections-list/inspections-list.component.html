@@ -1,14 +1,17 @@
-<p>
-  <a routerLink="./add">Add</a>
-</p>
+<a mat-fab routerLink="./add" style="position: absolute; right: 20px; bottom: 20px">
+  <mat-icon>add</mat-icon>
+</a>
 
-<div class="card" *ngFor="let inspection of inspections | async">
-  <div class="card-body">
-    <h5 class="card-title">{{inspection.address}}</h5>
-    <p class="card-text"><b>Owner</b>: {{inspection.owner}}</p>
-    <p class="card-text"><b>Inspector</b>: {{inspection.inspectorName}}</p>
-    <p class="card-text"><b>Date</b>: {{inspection.inspectionDate.seconds * 1000 | date}}</p>
-    <a class="card-link" routerLink="./edit/{{inspection.id}}">Edit</a>
-    <a href class="card-link" (click)="$event.preventDefault(); remove(inspection.id)">Delete</a>
-  </div>
-</div>
+<mat-list>
+  <mat-list-item *ngFor="let inspection of inspections | async" class="border-bottom">
+    <a matLine routerLink="./edit/{{inspection.id}}">
+      <h5>{{inspection.address}}</h5>
+    </a>
+    <p matLine><b>Owner</b>: {{inspection.owner}}</p>
+    <p matLine><b>Inspector</b>: {{inspection.inspectorName}}</p>
+    <p matLine><b>Date</b>: {{inspection.inspectionDate.seconds * 1000 | date}}</p>
+    <button mat-icon-button (click)="$event.preventDefault(); remove(inspection.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

@@ -1,17 +1,17 @@
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
 import {LoginComponent} from './views/login/login.component';
-import {DashboardComponent} from './views/dashboard/dashboard.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {InspectionsListComponent} from './views/inspections/inspections-list/inspections-list.component';
 import {InspectionsFormComponent} from './views/inspections/inspections-form/inspections-form.component';
+import {SideNavComponent} from './views/side-nav/side-nav.component';
 
 const appRoutes: Routes = [{
   path: 'login',
   component: LoginComponent
 }, {
   path: '',
-  component: DashboardComponent,
+  component: SideNavComponent,
   canActivate: [AuthGuardService],
   children: [
     {path: '', redirectTo: 'inspections', pathMatch: 'full'},

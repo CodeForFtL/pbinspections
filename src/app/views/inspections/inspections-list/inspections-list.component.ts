@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-inspections-list',
   templateUrl: './inspections-list.component.html',
-  styleUrls: ['./inspections-list.component.css']
+  styleUrls: ['./inspections-list.component.scss']
 })
 export class InspectionsListComponent implements OnInit {
 

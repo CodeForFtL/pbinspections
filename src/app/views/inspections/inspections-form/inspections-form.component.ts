@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {InspectionsService} from '../../../services/inspections.service';
 import {Inspection} from '../../../models/inspection';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 const Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-inspections-form',
   templateUrl: './inspections-form.component.html',
-  styleUrls: ['./inspections-form.component.css']
+  styleUrls: ['./inspections-form.component.scss']
 })
 export class InspectionsFormComponent implements OnInit {
 
@@ -33,7 +33,7 @@ export class InspectionsFormComponent implements OnInit {
   }
 
   changeDate(event) {
-    this.inspection.inspectionDate = new Timestamp(Math.floor(new Date(event).getTime() / 1000), 0);
+    this.inspection.inspectionDate = event ? new Timestamp(Math.floor(event.getTime() / 1000), 0) : null;
   }
 
   async save() {

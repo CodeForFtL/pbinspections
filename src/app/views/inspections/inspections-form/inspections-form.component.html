@@ -1,117 +1,185 @@
-<form *ngIf="inspection" (submit)="save()">
-  <div class="form-group">
-    <label for="inspectorId">Inspector Id</label>
-    <input id="inspectorId"
-           name="inspectorId"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.inspectorId">
-  </div>
-  <div class="form-group">
-    <label for="inspectorName">Inspector Name</label>
-    <input id="inspectorName"
-           name="inspectorName"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.inspectorName">
-  </div>
-  <div class="form-group">
-    <label for="permitNumber">Permit Number</label>
-    <input id="permitNumber"
-           name="permitNumber"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.permitNumber">
-  </div>
-  <div class="form-group">
-    <label for="inspectionDate">Inspection Date</label>
-    <input id="inspectionDate"
-           name="inspectionDate"
-           type="text"
-           class="form-control"
-           [ngModel]="inspection.inspectionDate.seconds * 1000 | date"
-           (ngModelChange)="changeDate($event)">
-  </div>
-  <div class="form-group">
-    <label for="owner">Owner</label>
-    <input id="owner"
-           name="owner"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.owner">
-  </div>
-  <div class="form-group">
-    <label for="address">Address</label>
-    <input id="address"
-           name="address"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.address">
-  </div>
-  <div class="form-group">
-    <label for="zipCode">Zip Code</label>
-    <input id="zipCode"
-           name="zipCode"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.zipCode">
-  </div>
-  <div class="form-group">
-    <label for="apt">Apartment</label>
-    <input id="apt"
-           name="apt"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.apt">
-  </div>
-  <div class="form-group">
-    <label for="permitType">Permit Type</label>
-    <input id="permitType"
-           name="permitType"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.permitType">
-  </div>
-  <div class="form-group">
-    <label for="inspectionType">Inspection Type</label>
-    <input id="inspectionType"
-           name="inspectionType"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.inspectionType">
-  </div>
-  <div class="form-group">
-    <label for="inspectionResults">Inspection Results</label>
-    <input id="inspectionResults"
-           name="inspectionResults"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.inspectionResults">
-  </div>
-  <div class="form-group">
-    <label for="inspectionCodeDesc">Inspection Code Description</label>
-    <input id="inspectionCodeDesc"
-           name="inspectionCodeDesc"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.inspectionCodeDesc">
-  </div>
-  <div class="form-group">
-    <label for="locId">Location Id</label>
-    <input id="locId"
-           name="locId"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.locId">
-  </div>
-  <div class="form-group">
-    <label for="folioNo">Folio No.</label>
-    <input id="folioNo"
-           name="folioNo"
-           type="text"
-           class="form-control"
-           [(ngModel)]="inspection.folioNo">
-  </div>
+<div class="container pt-3" *ngIf="inspection">
+  <form #inspectionForm="ngForm" (submit)="save()" class="row">
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Inspector Id</mat-label>
+      <input matInput
+             name="inspectorId"
+             type="number"
+             [(ngModel)]="inspection.inspectorId"
+             #inspectorId="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="inspectorId"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Inspector Name</mat-label>
+      <input matInput
+             name="inspectorName"
+             type="text"
+             [(ngModel)]="inspection.inspectorName"
+             #inspectorName="ngModel"
+             required
+             minlength="5"
+             maxlength="30">
+      <mat-error>
+        <app-errors [field]="inspectorName"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Permit Number</mat-label>
+      <input matInput
+             name="permitNumber"
+             type="text"
+             [(ngModel)]="inspection.permitNumber"
+             #permitNumber="ngModel"
+             required
+             pattern="[0-9-]+">
+      <mat-error>
+        <app-errors [field]="permitNumber"
+                    patternErrorMessage="This field only accepts numbers and dashes"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Inspection Date</mat-label>
+      <input matInput
+             [matDatepicker]="inspectionDatePicker"
+             name="inspectionDate"
+             [ngModel]="inspection.inspectionDate | fireTimestampDate"
+             (ngModelChange)="changeDate($event)"
+             #inspectionDate="ngModel"
+             required>
+      <mat-datepicker-toggle matSuffix [for]="inspectionDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #inspectionDatePicker></mat-datepicker>
+      <mat-error>
+        <app-errors [field]="inspectionDate"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Owner</mat-label>
+      <input matInput
+             name="owner"
+             type="text"
+             [(ngModel)]="inspection.owner"
+             #owner="ngModel"
+             minlength="5"
+             maxlength="30"
+             pattern="[A-Za-z, ]+"
+             required>
+      <mat-error>
+        <app-errors [field]="owner"
+                    patternErrorMessage="This field only accepts letters, commas and spaces"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label for="address">Address</mat-label>
+      <input matInput
+             name="address"
+             type="text"
+             [(ngModel)]="inspection.address"
+             #address="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="address"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Zip Code</mat-label>
+      <input matInput
+             name="zipCode"
+             type="text"
+             [(ngModel)]="inspection.zipCode"
+             #zipCode="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="zipCode"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Apartment</mat-label>
+      <input matInput
+             name="apt"
+             type="text"
+             [(ngModel)]="inspection.apt">
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Permit Type</mat-label>
+      <input matInput
+             name="permitType"
+             type="text"
+             [(ngModel)]="inspection.permitType"
+             #permitType="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="permitType"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label>Inspection Type</mat-label>
+      <input matInput
+             name="inspectionType"
+             type="text"
+             [(ngModel)]="inspection.inspectionType"
+             #inspectionType="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="inspectionType"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label for="inspectionResults">Inspection Results</mat-label>
+      <input matInput
+             name="inspectionResults"
+             type="text"
+             [(ngModel)]="inspection.inspectionResults"
+             #inspectionResults="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="inspectionResults"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label for="inspectionCodeDesc">Inspection Code Description</mat-label>
+      <input matInput
+             name="inspectionCodeDesc"
+             type="text"
+             [(ngModel)]="inspection.inspectionCodeDesc"
+             #inspectionCodeDesc="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="inspectionCodeDesc"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label for="locId">Location Id</mat-label>
+      <input matInput
+             name="locId"
+             type="text"
+             [(ngModel)]="inspection.locId"
+             #locId="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="locId"></app-errors>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-4 col-lg-3">
+      <mat-label for="folioNo">Folio No.</mat-label>
+      <input matInput
+             name="folioNo"
+             type="text"
+             [(ngModel)]="inspection.folioNo"
+             #folioNo="ngModel"
+             required>
+      <mat-error>
+        <app-errors [field]="zipCode"></app-errors>
+      </mat-error>
+    </mat-form-field>
 
-  <button type="submit" class="btn btn-primary">Submit Form</button>
-</form>
+    <button mat-fab type="submit" style="position: fixed; right: 106px; bottom: 20px" color="primary" [disabled]="inspectionForm.invalid">
+      <mat-icon>check</mat-icon>
+    </button>
+    <a mat-fab routerLink="../.." style="position: fixed; right: 40px; bottom: 20px" color="accent">
+      <mat-icon>clear</mat-icon>
+    </a>
+  </form>
+</div>

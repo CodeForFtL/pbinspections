@@ -12,11 +12,24 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {LoginComponent} from './views/login/login.component';
 import {DashboardComponent} from './views/dashboard/dashboard.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InspectionsListComponent} from './views/inspections/inspections-list/inspections-list.component';
 import {InspectionsFormComponent} from './views/inspections/inspections-form/inspections-form.component';
 import {InspectionsService} from './services/inspections.service';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { SideNavComponent } from './views/side-nav/side-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule, MatDatepickerModule, MatNativeDateModule
+} from '@angular/material';
+import { ErrorsComponent } from './shared/components/field-errors/errors.component';
+import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
 
 @NgModule({
   declarations: [
@@ -24,17 +37,30 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     LoginComponent,
     DashboardComponent,
     InspectionsListComponent,
-    InspectionsFormComponent
+    InspectionsFormComponent,
+    SideNavComponent,
+    ErrorsComponent,
+    FireTimestampDatePipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NgbModule.forRoot(),
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AppRoutes
+    AppRoutes,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [AuthService, AuthGuardService, InspectionsService],
   bootstrap: [AppComponent]
