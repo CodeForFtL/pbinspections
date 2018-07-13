@@ -18,8 +18,11 @@ export class InspectionsService extends BaseService<Inspection> {
       .flatMap(user => {
         return user.roles.includes('admin')
           ? super.findAll(queryFn)
-          : super.findAll(ref => (queryFn ? queryFn(ref) : ref)
-            .where('ownerUid', '==', user.uid)) as Observable<Inspection[]>;
+          : user.roles.includes('inspector')
+            ? super.findAll(ref => (queryFn ? queryFn(ref) : ref)
+              .where('inspectorUid', '==', user.uid))
+            : super.findAll(ref => (queryFn ? queryFn(ref) : ref)
+              .where('ownerUid', '==', user.uid)) as Observable<Inspection[]>;
       });
   }
 }
