@@ -1,53 +1,72 @@
 <div class="container">
   <div class="row">
-    <div class="card col-md-4 offset-md-4">
-      <div class="card-block pt-3">
+    <mat-card class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <mat-card-title>Login</mat-card-title>
+      <!--<ngb-alert *ngIf="errorMessage" type="danger">{{errorMessage}}</ngb-alert>-->
 
-        <!--<ngb-alert *ngIf="errorMessage" type="danger">{{errorMessage}}</ngb-alert>-->
+      <mat-card-content>
+        <form #userForm="ngForm" (submit)="loginWithEmail()" class="row">
+          <mat-form-field class="col-12">
+            <input matInput
+                   type="email"
+                   class="form-control"
+                   id="email"
+                   name="email"
+                   [(ngModel)]="user.email"
+                   #email="ngModel"
+                   placeholder="Email address"
+                   required
+                   email>
+            <mat-error>
+              <app-errors [field]="email"></app-errors>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12">
+            <input matInput
+                   type="password"
+                   class="form-control"
+                   name="password"
+                   [(ngModel)]="user.password"
+                   #password="ngModel"
+                   placeholder="Password"
+                   required>
+            <mat-error>
+              <app-errors [field]="password"></app-errors>
+            </mat-error>
+          </mat-form-field>
 
-        <form #userForm="ngForm">
-          <h3 align="center">Login</h3>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+          <div class="container-fluid row">
+            <div class="col-8 offset-2">
+              <button mat-raised-button color="primary" class="w-100">Login with Email</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" placeholder="Password"
-              required>
-          </div>
 
-          <div class="form-group">
-            <button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="loginWithEmail()">
-              Login with Email
-            </button>
-          </div>
+          <div class="container-fluid row mt-3">
+            <!--
+              <button type="button" class="btn btn-block" (click)="loginWithFacebook()">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                Login with Facebook
+              </button>
 
+              <button type="button" class="btn btn-block" (click)="loginWithTwitter()">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                Login with Twitter
+              </button>
 
-          <div class="form-group">
-<!--
-            <button type="button" class="btn btn-block" (click)="loginWithFacebook()">
-              <i class="fa fa-facebook" aria-hidden="true"></i>
-              Login with Facebook
-            </button>
-
-            <button type="button" class="btn btn-block" (click)="loginWithTwitter()">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-              Login with Twitter
-            </button>
-
-            <button type="button" class="btn btn-block" (click)="loginWithGithub()">
-              <i class="fa fa-github" aria-hidden="true"></i>
-              Login with Github
-            </button>
--->
-            <button type="button" class="btn btn-block" (click)="loginWithGoogle()">
-              <i class="fa fa-google" aria-hidden="true"></i>
-              Login with Google
-            </button>
+              <button type="button" class="btn btn-block" (click)="loginWithGithub()">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                Login with Github
+              </button>
+            -->
+            <div class="col-8 offset-2">
+              <button mat-raised-button (click)="loginWithGoogle()" class="w-100">
+                <i class="fa fa-google" aria-hidden="true"></i>
+                Login with Google
+              </button>
+            </div>
           </div>
         </form>
-      </div>
-    </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

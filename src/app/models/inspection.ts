@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app';
 
 export interface Inspection {
+  uid?: string;
   id?: string;
   inspectorId?: number;
   inspectorName?: string;

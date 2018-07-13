@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {InspectionsService} from '../../../services/inspections.service';
 import {Inspection} from '../../../models/inspection';
 import {Observable} from 'rxjs';
@@ -8,14 +8,12 @@ import {Observable} from 'rxjs';
   templateUrl: './inspections-list.component.html',
   styleUrls: ['./inspections-list.component.scss']
 })
-export class InspectionsListComponent implements OnInit {
+export class InspectionsListComponent {
 
   inspections: Observable<Inspection[]>;
 
-  constructor(private inspectionsService: InspectionsService) { }
-
-  ngOnInit() {
-    this.inspections = this.inspectionsService.getAll();
+  constructor(private inspectionsService: InspectionsService) {
+    this.inspections = this.inspectionsService.findAll();
   }
 
   remove(id) {

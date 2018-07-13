@@ -1,7 +1,75 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+
+    function isSignedIn() {
+      return request.auth.uid != null
+    }
+
+    function getDocument(documentPath) {
+    	return get(/databases/$(database)/documents/$(documentPath))
+    }
+
+    function getRoles() {
+      return getDocument(/users/$(request.auth.uid)).data.roles
+    }
+
+    function hasRole(role) {
+      return role in getRoles()
+    }
+
+    function isValidInspection(data) {
+    	return data.id is string &&
+      			 (!('inspectorId' in data) || data.inspectorId is number) &&
+             (!('inspectorName' in data) || data.inspectorName is string) &&
+             data.permitNumber is string &&
+             (!('inspectionDate' in data) || data.inspectionDate is timestamp) &&
+             data.owner is string &&
+             data.address is string &&
+             data.zipCode is string &&
+             (!('apt' in data) || data.apt is number) &&
+             data.permitType is string &&
+             data.inspectionType is number &&
+             (!('inspectionResults' in data) || data.inspectionResults is string) &&
+             data.inspectionCodeDesc is string &&
+             data.locId is number &&
+             (!('folioNo' in data) || data.folioNo is string)
+    }
+
+  	match /users/{user} {
+  		allow read: if user == request.auth.uid
+      allow update: if user == request.auth.uid &&
+      						request.resource.data.email == resource.data.email &&
+      						request.resource.data.roles == resource.data.roles
+
+			allow create: if user == request.auth.uid
+                       && request.resource.data.roles == ['owner']
+                       && request.auth.uid == request.resource.data.uid
+                       && request.auth.token.email == request.resource.data.email
+
+      allow read, write: if hasRole('admin')
+  	}
+
+    match /inspections/{inspection} {
+    	// allow read;
+      allow read: if hasRole('admin') ||
+                     resource.data.ownerUid == request.auth.uid ||
+                     resource.data.inspectorUid == request.auth.uid
+
+      allow write: if hasRole('admin')
+
+      allow create: if hasRole('owner') &&
+      								 request.resource.data.ownerUid == request.auth.uid &&
+      								 request.resource.data.status == 'NEW' &&
+                       (!('permitResults' in request.resource.data) || request.resource.data.permitResults == '') &&
+                       isValidInspection(request.resource.data)
+
+			allow update: if hasRole('owner') &&
+                         request.resource.data.status == 'NEW' &&
+                         resource.data.status == 'NEW' &&
+                         (!('permitResults' in request.resource.data) || request.resource.data.permitResults == '') &&
+                         isValidInspection(request.resource.data) ||
+                       hasRole('inspector') &&
+                       	 isValidInspection(request.resource.data)
     }
   }
 }

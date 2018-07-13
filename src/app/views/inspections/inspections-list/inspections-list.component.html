@@ -4,7 +4,7 @@
 
 <mat-list>
   <mat-list-item *ngFor="let inspection of inspections | async" class="border-bottom">
-    <a matLine routerLink="./edit/{{inspection.id}}">
+    <a matLine routerLink="./edit/{{inspection.uid}}">
       <h5>{{inspection.address}}</h5>
     </a>
     <p matLine><b>Owner</b>: {{inspection.owner}}</p>

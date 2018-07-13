@@ -1,5 +1,6 @@
 <ul *ngIf="field && !field.valid && (field.touched || field.dirty)">
   <li *ngIf="field.errors.required">This field is required</li>
+  <li *ngIf="field.errors.email">This field should have email format (user@example.com)</li>
   <li *ngIf="field.errors.minlength">This field cannot have less than {{field.errors.minlength.requiredLength}} characters</li>
   <li *ngIf="field.errors.maxlength">This field cannot have more than {{field.errors.maxlength.requiredLength}} characters</li>
   <li *ngIf="field.errors.pattern">{{patternErrorMessage}}</li>

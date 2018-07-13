@@ -26,7 +26,7 @@ import {
   MatIconModule,
   MatListModule,
   MatFormFieldModule,
-  MatInputModule, MatDatepickerModule, MatNativeDateModule
+  MatInputModule, MatDatepickerModule, MatNativeDateModule, MatCardModule
 } from '@angular/material';
 import { ErrorsComponent } from './shared/components/field-errors/errors.component';
 import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
@@ -60,7 +60,8 @@ import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
   ],
   providers: [AuthService, AuthGuardService, InspectionsService],
   bootstrap: [AppComponent]
