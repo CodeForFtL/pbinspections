@@ -9,6 +9,6 @@ import {AngularFirestore} from 'angularfire2/firestore';
 export class UserService extends BaseService<User> {
 
   constructor(afs: AngularFirestore) {
-    super('user', afs);
+    super('users', afs);
   }
 }

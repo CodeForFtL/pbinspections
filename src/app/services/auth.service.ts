@@ -8,6 +8,8 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/toPromise';
 import {User} from '../models/user';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UserService} from './user.service';
@@ -35,8 +37,7 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private router: Router,
-              private userService: UserService) {
+              private router: Router) {
   }
 
   signInWithTwitter() {
@@ -63,8 +64,7 @@ export class AuthService {
 
   private oAuthLogin(provider: AuthProvider) {
     return this.afAuth.auth.signInWithPopup(provider).then(credentials => {
-      return this.userService.save({
-        uid: credentials.user.uid,
+      return this.afs.doc('/users/' + credentials.user.uid).set({
         email: credentials.user.email,
         roles: ['owner']
       });
