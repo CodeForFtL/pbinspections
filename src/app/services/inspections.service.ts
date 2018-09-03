@@ -4,6 +4,7 @@ import {AngularFirestore, QueryFn} from 'angularfire2/firestore';
 import {Inspection} from '../models/inspection';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
+import {flatMap} from 'rxjs/operators';
 
 @Injectable()
 export class InspectionsService extends BaseService<Inspection> {
@@ -13,9 +14,9 @@ export class InspectionsService extends BaseService<Inspection> {
   }
 
   findAll(queryFn?: QueryFn): Observable<Inspection[]> {
-    return this.authService.user
+    return this.authService.user.pipe(
     // todo: add if not null
-      .flatMap(user => {
+      flatMap(user => {
         return user.roles.includes('admin')
           ? super.findAll(queryFn)
           : user.roles.includes('inspector')
@@ -23,6 +24,6 @@ export class InspectionsService extends BaseService<Inspection> {
               .where('inspectorUid', '==', user.uid))
             : super.findAll(ref => (queryFn ? queryFn(ref) : ref)
               .where('ownerUid', '==', user.uid)) as Observable<Inspection[]>;
-      });
+      }));
   }
 }

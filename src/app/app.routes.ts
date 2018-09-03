@@ -5,6 +5,8 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {InspectionsListComponent} from './views/inspections/inspections-list/inspections-list.component';
 import {InspectionsFormComponent} from './views/inspections/inspections-form/inspections-form.component';
 import {SideNavComponent} from './views/side-nav/side-nav.component';
+import {InspectionsTabComponent} from './views/inspections/inspections-tab/inspections-tab.component';
+import {InspectionsMapComponent} from './views/inspections/inspections-map/inspections-map.component';
 
 const appRoutes: Routes = [{
   path: 'login',
@@ -15,7 +17,13 @@ const appRoutes: Routes = [{
   canActivate: [AuthGuardService],
   children: [
     {path: '', redirectTo: 'inspections', pathMatch: 'full'},
-    {path: 'inspections', component: InspectionsListComponent},
+    {
+      path: 'inspections', component: InspectionsTabComponent, children: [
+        {path: '', redirectTo: 'list', pathMatch: 'full'},
+        {path: 'list', component: InspectionsListComponent},
+        {path: 'map', component: InspectionsMapComponent}
+      ]
+    },
     {path: 'inspections/add', component: InspectionsFormComponent},
     {path: 'inspections/edit/:id', component: InspectionsFormComponent}
   ]

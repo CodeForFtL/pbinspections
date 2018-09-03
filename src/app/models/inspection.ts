@@ -11,6 +11,7 @@ export interface Inspection {
   address?: string;
   zipCode?: string;
   apt?: number;
+  location: Coordinates;
   permitType?: string;
   inspectionType?: number;
   inspectionResults?: string;

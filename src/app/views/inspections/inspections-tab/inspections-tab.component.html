@@ -1,0 +1,9 @@
+<nav mat-tab-nav-bar>
+  <a mat-tab-link routerLink="./list"
+     routerLinkActive #rlList="routerLinkActive"
+     [active]="rlList.isActive">List</a>
+  <a mat-tab-link routerLink="./map"
+     routerLinkActive #rlMap="routerLinkActive"
+     [active]="rlMap.isActive">Map</a>
+</nav>
+<router-outlet></router-outlet>

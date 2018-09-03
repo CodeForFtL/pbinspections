@@ -16,8 +16,11 @@ export class InspectionsListComponent {
     this.inspections = this.inspectionsService.findAll();
   }
 
+  navigateTo(location) {
+    console.log('navigate to: ', location);
+  }
+
   remove(id) {
-    console.log('deleting: ', id);
     this.inspectionsService.delete(id);
   }
 

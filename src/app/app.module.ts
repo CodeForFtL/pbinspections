@@ -26,10 +26,13 @@ import {
   MatIconModule,
   MatListModule,
   MatFormFieldModule,
-  MatInputModule, MatDatepickerModule, MatNativeDateModule, MatCardModule
+  MatInputModule, MatDatepickerModule, MatNativeDateModule, MatCardModule, MatTabsModule
 } from '@angular/material';
 import { ErrorsComponent } from './shared/components/field-errors/errors.component';
 import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
+import { InspectionsTabComponent } from './views/inspections/inspections-tab/inspections-tab.component';
+import { InspectionsMapComponent } from './views/inspections/inspections-map/inspections-map.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
     InspectionsFormComponent,
     SideNavComponent,
     ErrorsComponent,
-    FireTimestampDatePipe
+    FireTimestampDatePipe,
+    InspectionsTabComponent,
+    InspectionsMapComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,9 @@ import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.gmaps_api
+    }),
     AppRoutes,
     LayoutModule,
     MatToolbarModule,
@@ -61,7 +69,8 @@ import { FireTimestampDatePipe } from './shared/pipes/fire-timestamp-date.pipe';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [AuthService, AuthGuardService, InspectionsService],
   bootstrap: [AppComponent]

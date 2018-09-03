@@ -5,7 +5,7 @@
       <!--<ngb-alert *ngIf="errorMessage" type="danger">{{errorMessage}}</ngb-alert>-->
 
       <mat-card-content>
-        <form #userForm="ngForm" (submit)="loginWithEmail()" class="row">
+        <form #loginForm="ngForm" (submit)="loginWithEmail()" class="row">
           <mat-form-field class="col-12">
             <input matInput
                    type="email"
@@ -35,7 +35,9 @@
 
           <div class="container-fluid row">
             <div class="col-8 offset-2">
-              <button mat-raised-button color="primary" class="w-100">Login with Email</button>
+              <button mat-raised-button color="primary" class="w-100" [disabled]="loginForm.invalid">
+                Login with Email
+              </button>
             </div>
           </div>
         </form>

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  gmaps_api: 'AIzaSyDtMxHK01wwEuDNMXdHE0d8S73relWqkF0',
   firebase: {
     apiKey: 'AIzaSyAuFCK_g5XPqHGKrNDHXNhpfbp8d3S9wDI',
     authDomain: 'where-is-my-inspector-dev.firebaseapp.com',

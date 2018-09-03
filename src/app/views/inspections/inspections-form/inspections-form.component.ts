@@ -3,8 +3,9 @@ import {InspectionsService} from '../../../services/inspections.service';
 import {Inspection} from '../../../models/inspection';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as firebase from 'firebase/app';
-import {map} from 'rxjs/operators';
-import {Observable, of, Subscription} from 'rxjs';
+import {flatMap} from 'rxjs/operators';
+import {of, Subscription} from 'rxjs';
+
 const Timestamp = firebase.firestore.Timestamp;
 
 @Component({
@@ -23,12 +24,12 @@ export class InspectionsFormComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
-    this._subscription = this.route.params.flatMap(params => {
+    this._subscription = this.route.params.pipe(flatMap(params => {
       const id = params['id'];
       return id
         ? this.inspectionsService.findByUid(id)
-        : of({inspectionDate: new Timestamp(Math.floor(Date.now() / 1000), 0)});
-    }).subscribe(inspection => this.inspection = inspection);
+        : of(<Inspection>{inspectionDate: new Timestamp(Math.floor(Date.now() / 1000), 0)});
+    })).subscribe(inspection => this.inspection = inspection);
   }
 
   changeDate(event) {

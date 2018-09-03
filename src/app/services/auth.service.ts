@@ -4,20 +4,14 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {auth} from 'firebase/app';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toPromise';
 import {User} from '../models/user';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {UserService} from './user.service';
 import AuthProvider = auth.AuthProvider;
 import GithubAuthProvider = auth.GithubAuthProvider;
 import TwitterAuthProvider = auth.TwitterAuthProvider;
 import FacebookAuthProvider = auth.FacebookAuthProvider;
 import GoogleAuthProvider = auth.GoogleAuthProvider;
+import {filter, flatMap, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +19,14 @@ import GoogleAuthProvider = auth.GoogleAuthProvider;
 export class AuthService {
 
   get user(): Observable<User> {
-    return this.afAuth.user
-      .filter(user => !!user)
-      .flatMap(user => this.afs.doc<User>(`users/${user.uid}`).snapshotChanges())
-      .map(a => {
+    return this.afAuth.user.pipe(
+      filter(user => !!user),
+      flatMap(user => this.afs.doc<User>(`users/${user.uid}`).snapshotChanges()),
+      map(a => {
         const item = a.payload.data();
         item.uid = a.payload.id;
         return item;
-      });
+      }));
   }
 
   constructor(private afAuth: AngularFireAuth,
@@ -76,7 +70,7 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.afAuth.user.map(user => !!user);
+    return this.afAuth.user.pipe(map(user => !!user));
   }
 
   logout(): void {

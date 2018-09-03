@@ -1,15 +1,18 @@
-<a mat-fab routerLink="./add" style="position: absolute; right: 20px; bottom: 20px">
+<a mat-fab routerLink="../add" style="position: fixed; right: 20px; bottom: 20px; z-index: 10">
   <mat-icon>add</mat-icon>
 </a>
 
-<mat-list>
+<mat-list style="margin-bottom: 80px">
   <mat-list-item *ngFor="let inspection of inspections | async" class="border-bottom">
-    <a matLine routerLink="./edit/{{inspection.uid}}">
+    <a matLine routerLink="../edit/{{inspection.uid}}">
       <h5>{{inspection.address}}</h5>
     </a>
     <p matLine><b>Owner</b>: {{inspection.owner}}</p>
     <p matLine><b>Inspector</b>: {{inspection.inspectorName}}</p>
     <p matLine><b>Date</b>: {{inspection.inspectionDate.seconds * 1000 | date}}</p>
+    <button mat-icon-button (click)="$event.preventDefault(); navigateTo(inspection.location)">
+      <mat-icon>navigation</mat-icon>
+    </button>
     <button mat-icon-button (click)="$event.preventDefault(); remove(inspection.id)">
       <mat-icon>delete</mat-icon>
     </button>
