@@ -13,3 +13,6 @@ https://qtrandev.carto.com/tables/inspectiondata/public
 https://github.com/CodeForCoPB/HackathonApril2018  
 https://github.com/CodeForCoPB/HackathonApril2018/issues/1  
 https://github.com/CodeForCoPB/HackathonApril2018/blob/master/InspectionData.csv?raw=true  
+
+## Status
+Need to check with City of Pompano Beach on the progress of their own implementation.
